@@ -120,13 +120,13 @@ class RestChangePasswordDriver implements \RainLoop\Providers\ChangePassword\Cha
         }
 
         $bResult = false;
-        if (!empty($this->sUrl) && $oAccount)
+        if (!empty($this->sUrl) && !empty($this->sKey) && $oAccount)
         {
             $sEmail = \trim(\strtolower($oAccount->Email()));
 
-            # Adding the REST Api key to the url, try to use always https??
-            # seems incorrect, just ignore the key for the moment
-            $sUrl = $this->sUrl; //str_replace('://', '://'+$this->sKey+"@", $this->sUrl);
+            # Adding the REST Api key to the url
+            # don't understand this comment: try to use always https
+            str_replace('://', '://'.$this->sKey."@", $this->sUrl);
 
             $iCode = 0;
             $oHttp = \MailSo\Base\Http::SingletonInstance();
