@@ -138,9 +138,12 @@ class RestChangePasswordDriver implements \RainLoop\Providers\ChangePassword\Cha
 
             $mResult = $oHttp->SendPostRequest($sUrl,
                 array(
-                    $this->sFieldEmail => $sEmail,
-                    $this->sFieldOldpassword => $sPrevPassword,
-                    $this->sFieldNewpassword => $sNewPassword,
+                    # Each of these fields could contain "&" or "=".
+                    # This would not fit with the content-type "x-www-form-urlencoded",
+                    # hence these fields have to base64 encoded
+                    $this->sFieldEmail => base64_encode($sEmail),
+                    $this->sFieldOldpassword => base64_encode($sPrevPassword),
+                    $this->sFieldNewpassword => base64_encode($sNewPassword),
                 ), 'MailSo Http User Agent (v1)', $iCode, $this->oLogger);
 
             if (false !== $mResult && 200 === $iCode)
