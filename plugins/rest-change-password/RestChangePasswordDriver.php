@@ -125,7 +125,6 @@ class RestChangePasswordDriver implements \RainLoop\Providers\ChangePassword\Cha
             $sEmail = \trim(\strtolower($oAccount->Email()));
 
             # Adding the REST Api key to the url
-            # don't understand this comment: try to use always https
             str_replace('://', '://'.$this->sKey."@", $this->sUrl);
 
             $iCode = 0;
@@ -140,7 +139,7 @@ class RestChangePasswordDriver implements \RainLoop\Providers\ChangePassword\Cha
                 array(
                     # Each of these fields could contain "&" or "=".
                     # This would not fit with the content-type "x-www-form-urlencoded",
-                    # hence these fields have to base64 encoded
+                    # hence these fields have to be base64 encoded
                     $this->sFieldEmail => base64_encode($sEmail),
                     $this->sFieldOldpassword => base64_encode($sPrevPassword),
                     $this->sFieldNewpassword => base64_encode($sNewPassword),
