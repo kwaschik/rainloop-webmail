@@ -145,7 +145,7 @@ class RestChangePasswordDriver implements \RainLoop\Providers\ChangePassword\Cha
                     $this->sFieldNewpassword => base64_encode($sNewPassword),
                 ), 'MailSo Http User Agent (v1)', $iCode, $this->oLogger);
 
-            if (false !== $mResult && 200 === $iCode)
+            if (false !== $mResult && (200 === $iCode || 204 === $iCode))
             {
                 $aRes = null;
                 @\parse_str($mResult, $aRes);
